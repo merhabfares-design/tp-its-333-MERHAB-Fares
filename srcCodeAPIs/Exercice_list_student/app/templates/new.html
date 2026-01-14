@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des étudiants</title>
+</head>
+<body>
+    <h1>Ajouter un étudiant</h1>
+
+    <form method="post" action="/students">
+        <label>Nom :</label><br>
+        <input type="text" name="nom"><br><br>
+
+        <label>Adresse :</label><br>
+        <input type="text" name="adresse"><br><br>
+
+        <label>Pincode :</label><br>
+        <input type="text" name="pincode"><br><br>
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <h2>Liste des étudiants</h2>
+    <table border="1">
+        <tr>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Pincode</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student[0] }}</td>
+            <td>{{ student[1] }}</td>
+            <td>{{ student[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,118 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Student API",
+    "description": "API for managing students with JWT authentication",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Admin login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          }
+        }
+      }
+    },
+    "/students": {
+      "get": {
+        "summary": "Get all students",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {
+            "description": "List of students",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Student"
+              }
+            }
+          },
+          "403": {
+            "description": "Token required"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new student",
+        "security": [{"Bearer": []}],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Student"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Student added",
+            "schema": {
+              "$ref": "#/definitions/Student"
+            }
+          },
+          "403": {
+            "description": "Token required"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginRequest": {
+      "type": "object",
+      "properties": {
+        "login": {"type": "string"},
+        "password": {"type": "string"},
+        "code": {"type": "string"}
+      },
+      "required": ["login", "password", "code"]
+    },
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {"type": "string"}
+      }
+    },
+    "Student": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "integer"},
+        "nom": {"type": "string"},
+        "adresse": {"type": "string"},
+        "pincode": {"type": "string"}
+      },
+      "required": ["nom", "adresse", "pincode"]
+    }
+  }
+}
