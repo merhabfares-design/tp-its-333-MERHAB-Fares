@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion Santé</title>
+</head>
+<body>
+
+<h2>➕ Ajouter une personne</h2>
+<form method="post">
+    <input type="hidden" name="action" value="add_person">
+    <input name="name" placeholder="Nom de la personne" required>
+    <button>Créer</button>
+</form>
+
+<hr>
+
+<h2>➕ Ajouter données de santé</h2>
+<form method="post">
+    <input type="hidden" name="action" value="add_health">
+    <input name="person_id" placeholder="ID personne" required><br><br>
+    <input name="poids" placeholder="Poids" required><br><br>
+    <input name="taille" placeholder="Taille" required><br><br>
+    <button>Ajouter santé</button>
+</form>
+
+<hr>
+
+<h2>📋 Données actuelles</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Poids</th>
+        <th>Taille</th>
+    </tr>
+
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.poids }}</td>
+        <td>{{ row.taille }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<form action="/logout">
+    <button>Déconnexion</button>
+</form>
+
+</body>
+</html>
